@@ -1,1 +1,4 @@
-web: gunicorn app:app
+flask
+feedparser
+gunicorn
+pytz
