@@ -1,6 +1,7 @@
 from flask import Flask, render_template_string
 import feedparser
 from datetime import datetime
+import pytz  # NEW
 
 app = Flask(__name__)
 
@@ -48,7 +49,10 @@ def index():
     scores, headlines = analyze_headlines()
     strongest = max(scores, key=scores.get)
     weakest = min(scores, key=scores.get)
-    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+
+    # Use Nigeria timezone (Africa/Lagos)
+    lagos_tz = pytz.timezone("Africa/Lagos")
+    now = datetime.now(lagos_tz).strftime("%Y-%m-%d %H:%M %Z")
 
     template = '''
     <html>
